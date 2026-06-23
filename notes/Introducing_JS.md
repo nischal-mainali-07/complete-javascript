@@ -21,10 +21,6 @@ We have Premetive and Non- Premetive DataTypes
 
 here, we are going to learn Premetive type first... Later we will understand non-premetive also.
     1. String : There are three ways to represent string,> * ``,  > * " ", > * ' '. 
-                All this three is use for Strings but we have slight diffrence, say suppose you have a string ` consloe.log('My name is madhav') ` This is perfectly fine, What 
-                if you had ` console.log('He isin't telling the truth')` in the word **isin't**
-                you have single quote, this make the compiler/interpreter think that the String Started from *He and ended in isin*(Since we had single quote here)
-                
     2. Number
     3. Boolean
     4. Undefined
