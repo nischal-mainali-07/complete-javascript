@@ -1,4 +1,8 @@
 ## History of JS
+
+###### While writting these notes, I myself am learning. There may be some errors but the notes below are in best Knowledge of mine, This notes is for someone who have just started learning, all the problems i have faced and doubts i had is covered here. 
+
+
 When it comes to the History of JS, there were a couple of events that we need to understand.
 
 Do you know **NETSCAPE** (now Mozilla)?

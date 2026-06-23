@@ -4,7 +4,9 @@ Here we are again, Hope you have read [JS History]:(JsHistory.md)
 Lets jump on Data Types....
 
 You might be thinking DataTypes?? Directly? 
+
 So, Yes DataTypes Directly...
+
 Before JS you might have/have not(Doesnt matter) learned Other languages and you might have observed them explaining how to take INPUT & display OUTPUT....
 But,But,But... we dont need that in JS... 
 
@@ -18,17 +20,14 @@ We have HTML & CSS to take the input and display output...(HTML and CSS are basi
 We have Premetive and Non- Premetive DataTypes
 
 here, we are going to learn Premetive type first... Later we will understand non-premetive also.
-    1. String : There are three ways to represent string 
-                                                        > * ` `
-                                                        > * " "
-                                                        > * ' ' 
+    1. String : There are three ways to represent string,> * ``,  > * " ", > * ' '. 
                 All this three is use for Strings but we have slight diffrence, say suppose you have a string ` consloe.log('My name is madhav') ` This is perfectly fine, What 
                 if you had ` console.log('He isin't telling the truth')` in the word **isin't**
                 you have single quote, this make the compiler/interpreter think that the String Started from *He and ended in isin*(Since we had single quote here)
+                
     2. Number
-    
     3. Boolean
     4. Undefined
     5. Null 
     6. BigInt
-    7. Symbol
+    7. Symbol                                                    
