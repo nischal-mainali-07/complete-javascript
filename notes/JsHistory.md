@@ -55,3 +55,23 @@ Emphasizing how popular JS became — here we have a law, **Atwood's Law**:
 He gained a significant following through his widely read coding blog.
 
 📖 [Coding Horror — Jeff Atwood's Blog](https://blog.codinghorror.com/)
+
+###### Console in the Browser.
+**Refer a video in this case**
+
+[Youtube](https://www.youtube.com/watch?v=-lBfLogYtZk&list=PLfEr2kn3s-bo4LwlbyZugHPavhcdW8YMC&index=6)
+
+Still i am writing for your understanding. 
+
+1. Create a folder in you VS Code say **WebDev** and create Two files ```index.html``` and ```script.js```now link the .js file in html file ``` <script src="script.js"></script> ``` inside ``` <head>``` we could place ``` <script src="script.js"></script> ``` anywhere in our code but for now we are inserting it on ```<head>``` It has its own Pros and Cons... Reffer the image below. 
+![Visual Studio .html ScreenShot](/notes/Images/Screenshot%202026-06-25%20013628.png)
+Create .js file and Type ``` console.log("Hello World")```
+![Visual Studio .js ScreenShot](/notes/Images/Screenshot%202026-06-25%20013644.png)
+
+2. Go live (Use extention Live server) in the ```.html ``` file now you will see![Browser Screen Shot](/notes/Images/Screenshot%202026-06-25%20014310.png)
+3. Now Right Click and Click on inspect.
+4. You will see devloper tools interface. 
+5. click on Console 
+
+6. We can write java Script code and see output as well, You could call it console but its called REPL(Read,Eval,Print,Loop)
+whatever you typed in .js file will be visible here. 
