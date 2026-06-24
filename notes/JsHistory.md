@@ -56,12 +56,14 @@ He gained a significant following through his widely read coding blog.
 
 📖 [Coding Horror — Jeff Atwood's Blog](https://blog.codinghorror.com/)
 
-###### Console in the Browser
+---
+
+##### Console in the Browser
 
 > **Refer to this video for a visual walkthrough:**
 > [▶ YouTube — Console in the Browser](https://www.youtube.com/watch?v=-lBfLogYtZk&list=PLfEr2kn3s-bo4LwlbyZugHPavhcdW8YMC&index=6)
 
----
+
 
 Still, I'm writing this for your understanding.
 
@@ -102,6 +104,8 @@ Go Live using the **Live Server** extension on your `.html` file. You should see
 1. Right-click anywhere on the page and select **Inspect**.
 2. You'll see the **Developer Tools** interface open up.
 3. Click on the **Console** tab.
+
+![CONSOLE](Images/Console.png)
 
 Whatever you typed in your `.js` file will be visible here.
 
