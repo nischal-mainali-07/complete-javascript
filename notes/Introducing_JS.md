@@ -21,46 +21,116 @@ The answer to that question is **yes**, it does display output, but it isint mad
 
 ##### DataTypes
 
-We have Premetive and Non-Premetive DataTypes
+We have **Primitive** and **Non-Primitive** DataTypes.
 
-Here, we are going to learn Premetive type first... Later we will understand non-premetive also.
+Here, we are going to learn Primitive types first — we'll cover Non-Primitive later.
 
-To know the DataType of any object just type ```typeof hello ``` it will give you the dataType, in this case String. 
+> **Quick Tip:** To check the DataType of any value, use `typeof`. For example:
+> ```js
+> typeof "hello"  // Output: "string"
+> ```
 
-1. **String** : There are three ways to represent string:
-   - `" "` (Double quotes)
+---
 
-   - `' '` (Single quotes)
+**1. String**
 
-   - `` ` ` `` (Backticks)
+There are three ways to represent a String:
 
-   What I could understand is that.... Both single and double quote are Equivalent and interchangable for defining string leterals.. 
-   Then the question arise then why do we have `` ` ` `` (Backticks) the answer to it is simple.... Imagine you have two Strings ``` 1. console.log(" He said," Character is power" ") ```
-   and ```2.  console.log(' He isi'nt Lying')``` Can you spot the problem???
+- `" "` — Double quotes
+- `' '` — Single quotes
+- `` ` ` `` — Backticks
 
-   So in the 1st String if we wanted to quote something within the String it isint possible as the interpreter gives error, it treates ` " He said," ` (Focus on Quotes)as is one string and ` Character is power" "` is the other one and the Syntax seems to be wrong. and its not possible to write multiple line of String with these Quotes... Both for Single and Double Quotes.
-    
-   But `` ` ` `` Backticks on the other hand are used for template literals, which define a literal String allows embeded expression and multiline Strings. 
+Both single and double quotes are equivalent and interchangeable for defining string literals. So then the question arises — why do we have Backticks?
 
-2. **Number** 
-      -  You might have came across ``Int`` and ``Float`` in other languages like java and C++ but in JS all of them falls under same DataType i.e., **Numbers**
-         - Positive Infinity, Negative Infinity, NaN  
-          
-3. **Boolean**
-      - It have one of two Values **TRUE** ``0`` OR **FALSE** `` 1`` It is primarily used for making decision in your code and is the result of Comparision or logical operation. 
+The answer becomes clear with an example. Look at these two cases:
 
-4. **Undefined**
-      -  It is a keyword, any thing(variable) that is not defined/ not available in our programm that falls under **Undefined** 
+```js
+console.log(" He said, " Character is power" ")  // ❌ Problem!
+console.log(' He isn' t Lying')                  // ❌ Problem!
+```
 
-5. **Null**
-      -  Null is a special value intentionally assigned by a programmer to represent the absence of any object value. Its like placing and "Empty" label on the box.
-      Interestingly, in javaScript the DataType of null is actually considered to be an Object, which is a bug.
+Can you spot the issue?
 
-      They could have fix it but at that time already so many website were build and if they fix it, So many website might get crashed. 
+In the **first** case, the interpreter sees `" He said, "` as one string and `Character is power" "` as something else — the syntax breaks. In the **second** case, the single quote inside `isn't` closes the string early.
 
-6. **BigInt**
-      -  Very large numbers falls under BigInt 2<sup>53-1</sup>
+Another limitation: neither single nor double quotes support **multi-line strings**.
 
-7. **Symbol**
-Even i didnt understood this one so this defination is from google. 
-   -  It is a unuque and immutable premitive value used as a unique identifier for object properties to prevent name collisions                             
+This is where `` ` ` `` **Backticks** come in. They are used for **Template Literals**, which:
+- Allow **embedded expressions** using `${expression}`
+- Support **multi-line strings** natively
+
+```js
+let name = "Madhav"
+console.log(`Hello, ${name}!
+Welcome to JavaScript.`)
+// Output:
+// Hello, Madhav!
+// Welcome to JavaScript.
+```
+
+---
+
+**2. Number**
+
+You might have come across `Int` and `Float` in other languages like Java or C++, but in JS all numeric values fall under a single DataType — **Number**.
+
+This also includes special values:
+- `Infinity` — Positive Infinity
+- `-Infinity` — Negative Infinity
+- `NaN` — Not a Number (result of an invalid operation, e.g. `"abc" / 2`)
+
+---
+
+**3. Boolean**
+
+A Boolean can hold one of two values: **`true`** or **`false`**.
+
+It is primarily used for making decisions in your code and is the result of comparison or logical operations.
+
+```js
+5 > 3   // true
+5 === 4 // false
+```
+
+---
+
+**4. Undefined**
+
+`undefined` is a keyword. Any variable that is declared but not assigned a value falls under **Undefined**.
+
+```js
+let x;
+console.log(x); // undefined
+```
+
+---
+
+**5. Null**
+
+`null` is a special value **intentionally assigned** by a programmer to represent the absence of any object value. Think of it as placing an "Empty" label on a box.
+
+Interestingly, in JavaScript:
+
+```js
+typeof null // "object"
+```
+
+This is actually a **bug** in JavaScript. They could have fixed it, but by the time it was discovered, so many websites had already been built around this behaviour that fixing it would have caused them to break.
+
+---
+
+**6. BigInt**
+
+Used for very large numbers that exceed the safe integer limit of the `Number` type — i.e., beyond **2⁵³ - 1**.
+
+```js
+let big = 9007199254740991n  // Notice the 'n' at the end
+```
+
+---
+
+**7. Symbol**
+
+*(Honest note: I didn't fully understand this one yet, so here's the definition — we'll revisit it later.)*
+
+A `Symbol` is a **unique and immutable** primitive value, used as a unique identifier for object properties. Its main purpose is to prevent **name collisions** when multiple parts of code work with the same object.

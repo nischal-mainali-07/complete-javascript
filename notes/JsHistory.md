@@ -56,22 +56,66 @@ He gained a significant following through his widely read coding blog.
 
 📖 [Coding Horror — Jeff Atwood's Blog](https://blog.codinghorror.com/)
 
-###### Console in the Browser.
-**Refer a video in this case**
+###### Console in the Browser
 
-[Youtube](https://www.youtube.com/watch?v=-lBfLogYtZk&list=PLfEr2kn3s-bo4LwlbyZugHPavhcdW8YMC&index=6)
+> **Refer to this video for a visual walkthrough:**
+> [▶ YouTube — Console in the Browser](https://www.youtube.com/watch?v=-lBfLogYtZk&list=PLfEr2kn3s-bo4LwlbyZugHPavhcdW8YMC&index=6)
 
-Still i am writing for your understanding. 
+---
 
-1. Create a folder in you VS Code say **WebDev** and create Two files ```index.html``` and ```script.js```now link the .js file in html file ``` <script src="script.js"></script> ``` inside ``` <head>``` we could place ``` <script src="script.js"></script> ``` anywhere in our code but for now we are inserting it on ```<head>``` It has its own Pros and Cons... Reffer the image below. 
-![Visual Studio .html ScreenShot](/notes/Images/Screenshot%202026-06-25%20013628.png)
-Create .js file and Type ``` console.log("Hello World")```
-![Visual Studio .js ScreenShot](/notes/Images/Screenshot%202026-06-25%20013644.png)
+Still, I'm writing this for your understanding.
 
-2. Go live (Use extention Live server) in the ```.html ``` file now you will see![Browser Screen Shot](/notes/Images/Screenshot%202026-06-25%20014310.png)
-3. Now Right Click and Click on inspect.
-4. You will see devloper tools interface. 
-5. click on Console 
+**Step 1 — Setting up the project**
 
-6. We can write java Script code and see output as well, You could call it console but its called REPL(Read,Eval,Print,Loop)
-whatever you typed in .js file will be visible here. 
+Create a folder in VS Code, say **WebDev**, and inside it create two files: `index.html` and `script.js`.
+
+Now link the `.js` file inside your HTML using:
+
+```html
+<script src="script.js"></script>
+```
+
+We are placing it inside `<head>` for now — though it can technically go anywhere in the document. Each placement has its own pros and cons, which we'll cover later.
+
+![HTML file setup in VS Code](Images/Screenshot%202026-06-25%20013628.png)
+
+Inside `script.js`, type:
+
+```js
+console.log("Hello World")
+```
+
+![JS file setup in VS Code](Images/Screenshot%202026-06-25%20013644.png)
+
+---
+
+**Step 2 — Running it in the browser**
+
+Go Live using the **Live Server** extension on your `.html` file. You should see this in the browser:
+
+![Browser output](Images/Screenshot%202026-06-25%20014310.png)
+
+---
+
+**Step 3 — Opening Developer Tools**
+
+1. Right-click anywhere on the page and select **Inspect**.
+2. You'll see the **Developer Tools** interface open up.
+3. Click on the **Console** tab.
+
+Whatever you typed in your `.js` file will be visible here.
+
+---
+
+**What is this Console exactly?**
+
+You might call it just a "console", but it has a proper name — **REPL**, which stands for:
+
+| Letter | Meaning |
+|--------|---------|
+| **R** | Read |
+| **E** | Eval (Evaluate) |
+| **P** | Print |
+| **L** | Loop |
+
+You can also write JavaScript code directly in the REPL and see the output instantly — no file needed.
