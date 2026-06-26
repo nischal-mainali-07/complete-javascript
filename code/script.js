@@ -1,7 +1,3 @@
-// initial js setup
-
-
-
-
-console.log('Hello to the Good people of the World!')
-;
+let name = 'andrew'
+const age = 30
+var city = 'New York'
