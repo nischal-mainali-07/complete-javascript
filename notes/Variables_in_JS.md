@@ -144,5 +144,13 @@ var a = 10
 console.log(b)  // ❌ ReferenceError (let is in TDZ)
 let b = 10
 ```
-
+---
+Lastly,
+###### Rules For naming variables. 
+1. **Capital Letters:** *A* to *Z*
+2. **Small Letter:** *a* to *z*
+3. **Digit:** *0* to *9* (But we can't start variable name with digits)
+4. **No Special Characters :** Accept ```_``` and ```$``` (We can use this two character "_" and "&" anywhere while naming variables.)
+5. It Is prefferd to name you variable in such a way where we can draw sense out of it (e.g. ```sellingPrice``` and ```costPrice``` rather than ```x``` and ```y```), also By convention, JavaScript variable names are written in camelCase.
+6. We aren't allowed to use Reserved Key words to name our variables.
 ---
