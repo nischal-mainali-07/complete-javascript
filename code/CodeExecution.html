@@ -1,0 +1,491 @@
+
+
+Js execution diagram · HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Code Execution — Step by Step</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+ 
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  :root {
+    --bg:       #0f1117;
+    --surface:  #161b27;
+    --card:     #1e2436;
+    --border:   #2a3147;
+    --purple:   #7c5cfc;
+    --blue:     #3b9eff;
+    --green:    #22c55e;
+    --orange:   #f97316;
+    --yellow:   #facc15;
+    --red:      #ef4444;
+    --text:     #e8ecf4;
+    --muted:    #8892a4;
+    --code-bg:  #0d1117;
+  }
+ 
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    padding: 40px 24px 60px;
+    min-width: 900px;
+  }
+ 
+  /* ── HEADER ── */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 30%, var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+  .header p {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+ 
+  /* ── PHASE BANNER ── */
+  .phases {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 40px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .phase {
+    padding: 24px 28px;
+    background: var(--surface);
+  }
+  .phase-1 { border-right: 1px solid var(--border); }
+  .phase-2 { border-left: 1px solid var(--border); }
+  .phase-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    background: var(--surface);
+    font-size: 28px;
+    color: var(--muted);
+  }
+  .phase-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .phase-1 .phase-label { color: var(--purple); }
+  .phase-2 .phase-label { color: var(--blue); }
+  .phase h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .phase ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .phase ul li {
+    font-size: 13px;
+    color: var(--muted);
+    padding-left: 16px;
+    position: relative;
+  }
+  .phase ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--purple);
+    font-size: 11px;
+  }
+  .phase-2 ul li::before { color: var(--blue); }
+ 
+  /* ── STEPS ── */
+  .steps { display: flex; flex-direction: column; gap: 24px; }
+ 
+  .step {
+    display: grid;
+    grid-template-columns: 52px 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+    padding: 24px;
+    background: var(--card);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .step::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    border-radius: 14px 0 0 14px;
+  }
+  .step.phase-memory::before  { background: var(--purple); }
+  .step.phase-exec::before    { background: var(--blue); }
+  .step.phase-assign::before  { background: var(--green); }
+  .step.phase-done::before    { background: var(--orange); }
+ 
+  /* step number */
+  .step-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .phase-memory .step-num  { background: rgba(124,92,252,.18); color: var(--purple); }
+  .phase-exec   .step-num  { background: rgba(59,158,255,.18); color: var(--blue); }
+  .phase-assign .step-num  { background: rgba(34,197,94,.18);  color: var(--green); }
+  .phase-done   .step-num  { background: rgba(249,115,22,.18); color: var(--orange); }
+ 
+  /* left col: description */
+  .step-info h4 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .step-info p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .callout {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+  .callout-purple { background: rgba(124,92,252,.12); color: #c4b5fd; border-left: 3px solid var(--purple); }
+  .callout-blue   { background: rgba(59,158,255,.12);  color: #93c5fd; border-left: 3px solid var(--blue); }
+  .callout-green  { background: rgba(34,197,94,.12);   color: #86efac; border-left: 3px solid var(--green); }
+  .callout-orange { background: rgba(249,115,22,.12);  color: #fdba74; border-left: 3px solid var(--orange); }
+ 
+  /* right col: screenshot */
+  .step-screenshot {
+    border-radius: 9px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #000;
+  }
+  .step-screenshot img {
+    width: 100%;
+    display: block;
+  }
+  .ss-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 6px 10px;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+ 
+  /* scope table */
+  .scope-table {
+    margin-top: 10px;
+    background: var(--code-bg);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .scope-table .row { display: flex; gap: 8px; padding: 2px 0; }
+  .scope-var  { color: #c792ea; }
+  .scope-colon{ color: var(--muted); }
+  .scope-undef{ color: #f97316; }
+  .scope-val  { color: #c3e88d; }
+ 
+  /* ── TAKEAWAY ── */
+  .takeaway {
+    margin-top: 40px;
+    padding: 28px 32px;
+    background: linear-gradient(135deg, rgba(124,92,252,.12), rgba(59,158,255,.08));
+    border: 1px solid rgba(124,92,252,.3);
+    border-radius: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+  .takeaway-block h4 {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 10px;
+  }
+  .takeaway-block p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+ 
+  /* legend */
+  .legend {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+</style>
+</head>
+<body>
+ 
+<!-- HEADER -->
+<div class="header">
+  <div class="header-eyebrow">JavaScript Engine Internals</div>
+  <h1>Code Execution in JavaScript</h1>
+  <p>Every script runs in two distinct phases inside the JS Engine. Understanding this explains hoisting, undefined values, and how bugs appear before your code even "runs".</p>
+</div>
+ 
+<!-- PHASE BANNER -->
+<div class="phases">
+  <div class="phase phase-1">
+    <div class="phase-label">Phase 1</div>
+    <h3>Memory Creation Phase</h3>
+    <ul>
+      <li>JS Engine scans the entire code first</li>
+      <li>Allocates memory for all variables &amp; functions</li>
+      <li><code>var</code> variables → initialised as <strong>undefined</strong></li>
+      <li><code>let</code> / <code>const</code> → enter Temporal Dead Zone</li>
+    </ul>
+  </div>
+  <div class="phase-arrow">→</div>
+  <div class="phase phase-2">
+    <div class="phase-label">Phase 2</div>
+    <h3>Code Execution Phase</h3>
+    <ul>
+      <li>Engine executes code line by line</li>
+      <li>Actual values are assigned to variables</li>
+      <li>Data types are determined dynamically</li>
+      <li>Functions run when invoked</li>
+    </ul>
+  </div>
+</div>
+ 
+<!-- STEPS -->
+<div class="steps">
+ 
+  <!-- STEP 1 -->
+  <div class="step phase-memory">
+    <div class="step-num">1</div>
+    <div class="step-info">
+      <h4>Script Loaded — Execution Context Created</h4>
+      <p>The browser loads <code>script.js</code>. The JS Engine creates a <strong>Global Execution Context</strong> and immediately enters the Memory Creation Phase — before a single line of code runs.</p>
+      <div class="callout callout-purple">
+        The debugger is open but not yet started. No breakpoint hit yet.
+      </div>
+    </div>
+    <div class="step-screenshot">
+      <img src="/notes/Images/001.png" alt="DevTools Sources tab — debugger not started">
+      <div class="ss-label">DevTools → Sources → Debugger not yet paused</div>
+    </div>
+  </div>
+ 
+  <!-- STEP 2 -->
+  <div class="step phase-memory">
+    <div class="step-num">2</div>
+    <div class="step-info">
+      <h4>Breakpoint Set on Line 2</h4>
+      <p>We set a breakpoint at <code>console.log("myUniqueName")</code>. When we reload, execution pauses <em>before</em> line 2 runs. The Scope panel shows the current state of memory.</p>
+      <div class="callout callout-purple">
+        "Paused on breakpoint" — execution hasn't started yet.
+      </div>
+    </div>
+    <div class="step-screenshot">
+      <img src="/notes/Images/2.png" alt="Paused on breakpoint">
+      <div class="ss-label">Paused on breakpoint — Scope panel visible</div>
+    </div>
+  </div>
+ 
+  <!-- STEP 3 -->
+  <div class="step phase-memory">
+    <div class="step-num">3</div>
+    <div class="step-info">
+      <h4>Memory Creation Phase — Hoisting</h4>
+      <p>The JS Engine has scanned all declarations. Look at the <strong>Scope → Script</strong> panel: <code>myUniqueName</code> exists in memory but its value is <code>undefined</code>. The engine knows the variable exists — but hasn't assigned its value yet.</p>
+      <div class="scope-table">
+        <div class="row"><span class="scope-var">myUniqueName</span><span class="scope-colon">:</span><span class="scope-undef">undefined</span></div>
+        <div class="row"><span class="scope-var">age</span><span class="scope-colon">:</span><span class="scope-undef">&lt;value unavailable&gt;</span></div>
+        <div class="row"><span class="scope-var">city</span><span class="scope-colon">:</span><span class="scope-undef">&lt;value unavailable&gt;</span></div>
+      </div>
+      <div class="callout callout-purple">
+        This is hoisting in action — memory allocated, no values yet.
+      </div>
+    </div>
+    <div class="step-screenshot">
+      <img src="/notes/Images/3.png" alt="Scope showing undefined — memory phase">
+      <div class="ss-label">Scope panel → myUniqueName: undefined (memory phase)</div>
+    </div>
+  </div>
+ 
+  <!-- STEP 4 -->
+  <div class="step phase-exec">
+    <div class="step-num">4</div>
+    <div class="step-info">
+      <h4>Line 2 Executes — console.log Fires</h4>
+      <p>Code Execution Phase begins. Line 2 (<code>console.log("myUniqueName")</code>) runs. Because we are still in the execution phase and <code>myUniqueName</code> hasn't been assigned yet, the console prints <strong>undefined</strong>.</p>
+      <div class="callout callout-blue">
+        This is exactly why hoisting matters — the variable exists, but has no value yet at this point in execution.
+      </div>
+    </div>
+    <div class="step-screenshot">
+      <img src="/notes/Images/4.png" alt="console.log fires — undefined in scope">
+      <div class="ss-label">Line 2 executes → myUniqueName: undefined in Global scope</div>
+    </div>
+  </div>
+ 
+  <!-- STEP 5 -->
+  <div class="step phase-assign">
+    <div class="step-num">5</div>
+    <div class="step-info">
+      <h4>Line 3 Executes — Value Assigned</h4>
+      <p><code>var myUniqueName = 'andrew'</code> runs. The JS Engine now writes the actual value <strong>"andrew"</strong> into the memory slot that was previously <code>undefined</code>. Check the Scope panel — the value has updated.</p>
+      <div class="scope-table">
+        <div class="row"><span class="scope-var">myUniqueName</span><span class="scope-colon">:</span><span class="scope-val">"andrew"</span></div>
+        <div class="row"><span class="scope-var">age</span><span class="scope-colon">:</span><span class="scope-undef">undefined</span></div>
+        <div class="row"><span class="scope-var">city</span><span class="scope-colon">:</span><span class="scope-undef">undefined</span></div>
+      </div>
+      <div class="callout callout-green">
+        Memory slot updated: undefined → "andrew"
+      </div>
+    </div>
+    <div class="step-screenshot">
+      <img src="/notes/Images/5.png" alt="myUniqueName now andrew">
+      <div class="ss-label">After line 3 → myUniqueName: "andrew" in Scope</div>
+    </div>
+  </div>
+ 
+  <!-- STEP 6 -->
+  <div class="step phase-assign">
+    <div class="step-num">6</div>
+    <div class="step-info">
+      <h4>Line 4 Executes — age = 30</h4>
+      <p><code>const age = 30</code> runs. The Scope panel now shows <code>age: 30</code>. Notice that <code>city</code> is still unavailable — the engine executes strictly line by line.</p>
+      <div class="scope-table">
+        <div class="row"><span class="scope-var">myUniqueName</span><span class="scope-colon">:</span><span class="scope-val">"andrew"</span></div>
+        <div class="row"><span class="scope-var">age</span><span class="scope-colon">:</span><span class="scope-val">30</span></div>
+        <div class="row"><span class="scope-var">city</span><span class="scope-colon">:</span><span class="scope-undef">&lt;value unavailable&gt;</span></div>
+      </div>
+    </div>
+    <div class="step-screenshot">
+      <img src="/notes/Images/6.png" alt="age now 30">
+      <div class="ss-label">After line 4 → age: 30, city still unavailable</div>
+    </div>
+  </div>
+ 
+  <!-- STEP 7 -->
+  <div class="step phase-assign">
+    <div class="step-num">7</div>
+    <div class="step-info">
+      <h4>Line 5 Executes — city = 'New York'</h4>
+      <p><code>let city = 'New York'</code> runs. All three variables now have their actual values in the Scope panel. The Code Execution Phase is nearly complete.</p>
+      <div class="scope-table">
+        <div class="row"><span class="scope-var">myUniqueName</span><span class="scope-colon">:</span><span class="scope-val">"andrew"</span></div>
+        <div class="row"><span class="scope-var">age</span><span class="scope-colon">:</span><span class="scope-val">30</span></div>
+        <div class="row"><span class="scope-var">city</span><span class="scope-colon">:</span><span class="scope-val">"New York"</span></div>
+      </div>
+      <div class="callout callout-green">
+        All values assigned — execution phase complete.
+      </div>
+    </div>
+    <div class="step-screenshot">
+      <img src="/notes/Images/7.png" alt="city now New York — all values assigned">
+      <div class="ss-label">After line 5 → all variables have values</div>
+    </div>
+  </div>
+ 
+  <!-- STEP 8 -->
+  <div class="step phase-done">
+    <div class="step-num">8</div>
+    <div class="step-info">
+      <h4>Script Ends — Execution Context Removed</h4>
+      <p>The engine reaches the end of the script. The Global Execution Context is popped off the Call Stack and removed from memory. The console shows <code>undefined</code> — the value that was logged back in Step 4, before <code>myUniqueName</code> had its value.</p>
+      <div class="callout callout-orange">
+        The output "undefined" in the console is proof that console.log ran during execution, before the assignment on line 3.
+      </div>
+    </div>
+    <div class="step-screenshot">
+      <img src="/notes/Images/009.png" alt="Final state — undefined in console">
+      <div class="ss-label">Console output: undefined — logged before value was assigned</div>
+    </div>
+  </div>
+ 
+</div>
+ 
+<!-- TAKEAWAY -->
+<div class="takeaway">
+  <div class="takeaway-block">
+    <h4>Why undefined?</h4>
+    <p><code>var</code> declarations are hoisted and initialised as <code>undefined</code> during the Memory Creation Phase. So <code>console.log</code> on line 2 runs before line 3 assigns the value — printing <code>undefined</code>.</p>
+  </div>
+  <div class="takeaway-block">
+    <h4>var vs let/const</h4>
+    <p><code>var</code> → hoisted as <code>undefined</code>.<br><code>let</code> / <code>const</code> → hoisted into a Temporal Dead Zone. Accessing them before declaration throws a <code>ReferenceError</code>, not <code>undefined</code>.</p>
+  </div>
+  <div class="takeaway-block">
+    <h4>Key Insight</h4>
+    <p>JavaScript always runs in two passes. The first pass (Memory Phase) is why variables "exist" before their line runs. The second pass (Execution Phase) is where values are actually assigned, line by line.</p>
+  </div>
+</div>
+ 
+<!-- LEGEND -->
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> Memory Creation Phase</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> Execution Begins</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Values Assigned</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div> Execution Complete</div>
+</div>
+ 
+</body>
+</html>
+ 

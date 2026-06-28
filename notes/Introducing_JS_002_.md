@@ -1,6 +1,6 @@
 ###### Page: 002
 
-Here we are again, Hope you have read [JS History](JsHistory.md)
+Here we are again, Hope you have read [JS History](JsHistory_001_.md)
 
 Lets jump on Data Types....
 

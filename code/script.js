@@ -1,3 +1,6 @@
-let name = 'andrew'
+
+console.log("myUniqueName");
+var myUniqueName = 'andrew'
 const age = 30
-var city = 'New York'
+let city = 'New York'
+
