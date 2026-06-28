@@ -39,7 +39,7 @@ We then go live and open **DevTools → Sources tab**, where we can step through
 
 The images below show a step-by-step walkthrough of how variables move from `undefined` (memory phase) to their actual values (execution phase).
 
-[Console Debugger Steps](https://raw.githubusercontent.com/nischal-mainali-07/complete-javascript/refs/heads/main/code/CodeExecution.html)
+[Console Debugger Steps](http://127.0.0.1:5500/code/CodeExecution.html)
 
 ---
 
