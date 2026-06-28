@@ -33,13 +33,13 @@ Once the memory allocation is complete, the JavaScript engine executes the code 
 
 ### Practical Demo Using Chrome DevTools
 
-To see this in action, we write code in our [`script.js`](script.js) and [`Index.html`](Index.html) files.
+To see this in action, we write code in our [`script.js`](https://raw.githubusercontent.com/nischal-mainali-07/complete-javascript/refs/heads/main/code/script.js) and [`Index.html`](https://raw.githubusercontent.com/nischal-mainali-07/complete-javascript/refs/heads/main/code/Index.html) files.
 
 We then go live and open **DevTools → Sources tab**, where we can step through execution using the debugger.
 
 The images below show a step-by-step walkthrough of how variables move from `undefined` (memory phase) to their actual values (execution phase).
 
-![Console Debugger Steps](/notes/Images/Console%20Steps%20.png)
+[Console Debugger Steps](https://raw.githubusercontent.com/nischal-mainali-07/complete-javascript/refs/heads/main/code/CodeExecution.html)
 
 ---
 
